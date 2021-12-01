@@ -1,0 +1,13 @@
+diff --git a/wllvm/compilers.py b/wllvm/compilers.py
+index f298684..5f6a1e9 100644
+--- a/wllvm/compilers.py
++++ b/wllvm/compilers.py
+@@ -345,7 +345,7 @@ def linkFiles(builder, objectFiles):
+     cc.extend(objectFiles)
+     cc.extend(af.objectFiles)
+     cc.extend(af.linkArgs)
+-    cc.extend(['-o', outputFile])
++    cc.extend(['-target', 's390x-linux-gnu', '-o', outputFile])
+     proc = Popen(cc)
+     rc = proc.wait()
+     if rc != 0:
