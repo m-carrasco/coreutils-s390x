@@ -15,14 +15,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build coreutils for s390x
-      run: cd cross-compilation && sudo docker build --rm  .
-    - name: Extract files
-      run: cd cross-compilation && sudo docker cp $(docker ps -alq):/coreutils-8.31 ./coreutils-8.31
+      run: |
+        cd cross-compilation 
+        sudo docker build --rm  .
+        sudo docker cp $(docker ps -alq):/coreutils-8.31 ./coreutils-8.31
     - name: Install dependencies for running s390x container
       run: apt install -y qemu qemu-user-static qemu-user binfmt-support
     - name: Test binary (ls)
       run: |
         cd cross-compilation
-        docker run -it --rm -v /usr/bin/qemu-s390x-static:/usr/bin/qemu-s390x-static -v $(pwd)/coreutils-8.31:/coreutils-8.31 s390x/ubuntu:focal
+        sudo docker run -it --rm -v /usr/bin/qemu-s390x-static:/usr/bin/qemu-s390x-static -v $(pwd)/coreutils-8.31:/coreutils-8.31 s390x/ubuntu:focal
         /coreutils-8.31/obj-llvm/src/ls --version
         exit
