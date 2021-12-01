@@ -2,9 +2,9 @@
 
 # How to:
 
- 1.  Build the container, which compiles *coreutils* targeting *s390x* using *wllvm* and *clang-9*:
+ 1.  Create the container, which compiles *coreutils* targeting *s390x* using *wllvm* and *clang-9*:
 
-    ```cd cross-compilation && sudo docker build --rm  .```
+    ```cd cross-compilation && sudo docker build -t s390x_build_image . && sudo docker create s390x_build_image```
 	
  2. Extract the *coreutils* folder from the container:
  
