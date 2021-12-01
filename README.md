@@ -1,4 +1,4 @@
-# coreutils-s390x
+# coreutils-s390x [![Docker Image CI](https://github.com/m-carrasco/coreutils-s390x/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/m-carrasco/coreutils-s390x/actions/workflows/docker-image.yml)
 
 # How to:
 
