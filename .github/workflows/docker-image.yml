@@ -21,7 +21,7 @@ jobs:
         sudo docker create s390x_build_image
         sudo docker cp $(docker ps -alq):/coreutils-8.31 ./coreutils-8.31
     - name: Install dependencies for running s390x container
-      run: apt install -y qemu qemu-user-static qemu-user binfmt-support
+      run: sudo apt install -y qemu qemu-user-static qemu-user binfmt-support
     - name: Test binary (ls)
       run: |
         cd cross-compilation
