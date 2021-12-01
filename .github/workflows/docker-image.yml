@@ -25,5 +25,5 @@ jobs:
     - name: Test binary (ls)
       run: |
         cd cross-compilation
-        sudo docker run -d -it --name s390x_runtime --rm -v /usr/bin/qemu-s390x-static:/usr/bin/qemu-s390x-static -v $(pwd)/coreutils-8.31:/coreutils-8.31 s390x/ubuntu:focal /bin/bash
-        sudo docker exec -it s390x_runtime /coreutils-8.31/obj-llvm/src/ls --version
+        sudo docker run -d -t --name s390x_runtime --rm -v /usr/bin/qemu-s390x-static:/usr/bin/qemu-s390x-static -v $(pwd)/coreutils-8.31:/coreutils-8.31 s390x/ubuntu:focal
+        sudo docker exec s390x_runtime /coreutils-8.31/obj-llvm/src/ls --version
