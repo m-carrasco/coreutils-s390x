@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build coreutils for s390x
+      run: |
+        cd cross-compilation 
+        sudo docker build -t s390x_build_image . 
+        sudo docker create s390x_build_image
+        sudo docker cp $(docker ps -alq):/coreutils-8.31 ./coreutils-8.31
+    - name: Install dependencies for running s390x container
+      run: sudo apt install -y qemu qemu-user-static qemu-user binfmt-support
+    - name: Test binary (ls)
+      run: |
+        cd cross-compilation
+        sudo docker run -d -t --name s390x_runtime --rm -v /usr/bin/qemu-s390x-static:/usr/bin/qemu-s390x-static -v $(pwd)/coreutils-8.31:/coreutils-8.31 s390x/ubuntu:focal
+        sudo docker exec s390x_runtime /coreutils-8.31/obj-llvm/src/ls --version
